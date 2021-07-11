@@ -12,9 +12,12 @@ class TasksController < ApplicationController
   end
 
   def create
-    task = Task.new(task_params)
-    task.save!
-    redirect_to tasks_url, notice: "Completed to register task [#{task.name}]."
+    @task = Task.new(task_params)
+    if @task.save!
+      redirect_to tasks_url, notice: "Completed to register task [#{task.name}]."
+    else
+      render :new
+    end
   end
 
   def edit
