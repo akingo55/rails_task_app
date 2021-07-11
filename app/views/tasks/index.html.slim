@@ -1,3 +1,15 @@
 h1 Task List
 
 = link_to 'CREATE NEW TASK', new_task_path, class: 'btn btn-primary'
+
+.mb-3
+table.table.table-hover
+  thead.thead-default
+    tr
+      th= Task.human_attribute_name(:name)
+      th= Task.human_attribute_name(:created_at)
+  tbody
+    - @tasks.each do |t|
+      tr
+        td= link_to t.name, task_path(task)
+        td= t.created_at
