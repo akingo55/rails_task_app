@@ -18,3 +18,4 @@ table.table.table-hover
       th= Task.human_attribute_name(:created_at)
       td= @task.created_at
 = link_to 'EDIT', edit_task_path, class: 'btn btn-primary mr-3'
+= link_to 'DELETE', @task, method: :delete, data: {confirm: "delete task [#{@task.name}]. Are you OK?"}, class: 'btn btn-danger'
