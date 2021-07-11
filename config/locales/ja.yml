@@ -10,11 +10,12 @@ ja:
     models:
       task: タスク
     attributes:
-      id: ID
-      name: タスク名
-      description: 詳細
-      created_at: 登録日時
-      updated_at: 更新日時
+      task:
+         id: ID
+         name: タスク名
+         description: 詳細
+         created_at: 登録日時
+         updated_at: 更新日時
   date:
     abbr_day_names:
     - 日
