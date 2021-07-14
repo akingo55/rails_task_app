@@ -10,12 +10,14 @@ html
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   body
     .app-title.navbar.navbar-expand-md.navbar-light.bg-light
-      .navbar-brand Taskleaf
+      .navbar-brand =link_to 'Taskleaf', root_path
       ul.navbar-nav.ml-auto
         - if current_user
           li.nav-item= link_to 'Task List', tasks_path, class: 'nav-link'
           li.nav-item= link_to 'User List', admin_users_path, class: 'nav-link'
-          li.nav-item= link_to 'LOGOUT', logout_path, class: 'nav-link'
+          li.nav-item= link_to 'LOGOUT', logout_path, method: :delete, class: 'nav-link'
+        - else
+          li.nav-item= link_to 'LOGIN', login_path, class: 'nav-link'
     .container
       - if flash.notice.present?
         .alert.alert-success=flash.notice
