@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only:  [:show, :edit, :update, :destroy]
   def index
-    @tasks = current_user.tasks.order(created_at: :desc)
+    @tasks = current_user.tasks.order(created_at: :desc).page(params[:page])
   end
 
   def show
@@ -12,6 +12,7 @@ class TasksController < ApplicationController
   end
 
   def create
+    @task = current_user.tasks.new(task_params)
     if @task.save!
       redirect_to tasks_url, notice: "Completed to register task [#{@task.name}]."
     else

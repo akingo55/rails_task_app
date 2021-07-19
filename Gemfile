@@ -66,3 +66,6 @@ gem 'bootstrap'
 
 # auto-link
 gem 'rails_autolink'
+
+# kaminari
+gem 'kaminari'
