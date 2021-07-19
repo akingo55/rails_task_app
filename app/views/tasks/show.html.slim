@@ -16,6 +16,6 @@ table.table.table-hover
       td= auto_link(simple_format(h(@task.description), {}, sanitize: false, wrapper_tag: "div"))
     tr
       th= Task.human_attribute_name(:created_at)
-      td= @task.created_at
+      td= @task.format_time
 = link_to 'EDIT', edit_task_path, class: 'btn btn-primary mr-3'
 = link_to 'DELETE', @task, method: :delete, data: {confirm: "delete task [#{@task.name}]. Are you OK?"}, class: 'btn btn-danger'
