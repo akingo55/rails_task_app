@@ -13,6 +13,9 @@ table.table.table-hover
       tr
         td= link_to t.name, task_path(t)
         td= t.format_time
+
+= link_to 'EXPORT', tasks_path(format: :csv), class: 'btn btn-primary mb-3'
+
 .mb-3
   = paginate @tasks
   = page_entries_info @tasks
