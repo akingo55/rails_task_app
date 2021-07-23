@@ -15,6 +15,9 @@ table.table.table-hover
         td= t.format_time
 
 = link_to 'EXPORT', tasks_path(format: :csv), class: 'btn btn-primary mb-3'
+= form_tag import_tasks_path, multipart: true, class: 'mb-3' do
+  = file_field_tag :file
+  = submit_tag "IMPORT", class: 'btn btn-primary'
 
 .mb-3
   = paginate @tasks
