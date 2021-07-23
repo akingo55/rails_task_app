@@ -3,6 +3,7 @@ class Task < ApplicationRecord
   validate :validate_name_not_including_comma
 
   belongs_to :user
+  has_one_attached :image
 
   def format_time
     self.created_at.strftime('%Y/%m/%d %H:%M')
