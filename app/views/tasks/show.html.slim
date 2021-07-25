@@ -16,7 +16,7 @@ table.table.table-hover
       td= auto_link(simple_format(h(@task.description), {}, sanitize: false, wrapper_tag: "div"))
     tr
       th= Task.human_attribute_name(:image)
-      td= image_tag @task.image if @task.image.attached?
+      td= image_tag @task.image, size: '320x240' if @task.image.attached?
     tr
       th= Task.human_attribute_name(:created_at)
       td= @task.format_time
