@@ -69,3 +69,6 @@ gem 'rails_autolink'
 
 # kaminari
 gem 'kaminari'
+
+# ransack
+gem 'ransack'

@@ -1,7 +1,8 @@
 class TasksController < ApplicationController
   before_action :set_task, only:  [:show, :edit, :update, :destroy]
   def index
-    @tasks = current_user.tasks.order(created_at: :desc).page(params[:page])
+    @q = current_user.tasks.ransack(params[:q])
+    @tasks = @q.result(distinct: true).order(created_at: :desc).page(params[:page])
 
     respond_to do |format|
       format.html
