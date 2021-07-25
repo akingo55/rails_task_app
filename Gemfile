@@ -72,3 +72,5 @@ gem 'kaminari'
 
 # ransack
 gem 'ransack'
+
+gem 'flatpickr'
