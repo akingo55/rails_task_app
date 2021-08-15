@@ -2,38 +2,29 @@ require 'rails_helper'
 
 describe 'タスク管理機能', type: :system do
   describe '一覧表示機能' do
-    before do
-      # create user
-      user_a = FactoryBot.create(:user, name: 'usera', email: 'a@example.com')
-      # create task the user has
-      FactoryBot.create(:task, name: 'first task', user: user_a)
-    end
+      let(:user_a) {FactoryBot.create(:user, name: 'usera', email: 'a@example.com') }
+      let(:user_b) {FactoryBot.create(:user, name: 'userb', email: 'b@example.com') }
 
-    context 'ユーザーがログインしているとき' do
       before do
+        FactoryBot.create(:task, name: 'first task', user: user_a)
         # login user
         visit login_path
-        fill_in 'メールアドレス', with: 'a@example.com'
-        fill_in 'パスワード', with: 'testuser'
+        fill_in 'メールアドレス', with: login_user.email
+        fill_in 'パスワード', with: login_user.password
         click_button 'LOGIN'
       end
 
-      it 'ユーザーが作成したタスクが表示される' do
+    context 'ユーザーAがログインしているとき' do
+      let(:login_user) { user_a }
+
+      it 'ユーザーAが作成したタスクが表示される' do
         # check user task list
         expect(page).to have_content 'first task'
       end
     end
 
     context 'ユーザーBがログインしているとき' do
-      before do
-        # create userb
-        userb = FactoryBot.create(:user, name: 'userb', email: 'b@example.com')
-        # login with userb
-        visit login_path
-        fill_in 'メールアドレス', with: 'b@example.com'
-        fill_in 'パスワード', with: 'testuser'
-        click_button 'LOGIN'
-      end
+      let(:login_user) { user_b }
 
       it 'ユーザーAのタスクが表示されないこと' do
       # not display usera task
