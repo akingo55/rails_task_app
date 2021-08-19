@@ -69,7 +69,9 @@ describe 'タスク管理機能', type: :system do
       let(:task_name) { '' }
 
       it 'errorになる' do
-        expect(page).to have_content 'タスク名を入力してください'
+        within '#error_explanation' do
+          expect(page).to have_content 'タスク名を入力してください'
+        end
       end
     end
   end
