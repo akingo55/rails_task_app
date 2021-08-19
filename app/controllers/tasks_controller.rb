@@ -24,7 +24,7 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.new(task_params)
-    if @task.save!
+    if @task.save
       redirect_to tasks_url, notice: "Completed to register task [#{@task.name}]."
     else
       render :new
