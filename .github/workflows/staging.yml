@@ -43,6 +43,6 @@ jobs:
           echo "::set-output name=size::$SIZE"          
           
       - name: run migration
-        if: steps.migration.outputs.size != '0' && ( env.deploy_env == staging || github.event.label.name == 'migration' )
+        if: steps.migration.outputs.size != '0' && ( env.deploy_env == 'staging' || github.event.label.name == 'migration' )
         run: |
           echo run ${{ env.deploy_env }}-deploy-web
