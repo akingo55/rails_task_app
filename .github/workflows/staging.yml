@@ -3,6 +3,9 @@ name: test1
 on:
   push:
     branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+    types: [ labeled ]
 
   workflow_dispatch:
 
@@ -16,11 +19,8 @@ jobs:
           fetch-depth: 2
 
       - name: run docker build
-        id: migration
         run: |
-          git diff --name-only @^ -- db/migrate
-          SIZE=$(git diff --name-only @^ -- db/migrate | wc -l)
-          echo "::set-output name=size::$SIZE"
+          echo run docker build
 
   migration:
     runs-on: ubuntu-latest
@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
-        
+
       - name: configure deploy env (staging)
         if: github.ref == 'refs/heads/develop'
         run: echo "deploy_env=staging" >> $GITHUB_ENV
@@ -40,8 +40,8 @@ jobs:
         run: |
           git diff --name-only @^ -- db/migrate
           SIZE=$(git diff --name-only @^ -- db/migrate | wc -l)
-          echo "::set-output name=size::$SIZE"          
-          
+          echo "::set-output name=size::$SIZE"
+
       - name: run migration
         if: steps.migration.outputs.size != '0' && ( env.deploy_env == 'staging' || github.event.label.name == 'migration' )
         run: |
