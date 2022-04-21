@@ -34,6 +34,7 @@ jobs:
           git diff --name-only @^ -- db/migrate
           SIZE=$(git diff --name-only @^ -- db/migrate | wc -l)
           echo "::set-output name=size::$SIZE"
+          echo ${{ github.ref }}
 
   migration:
     # The type of runner that the job will run on
