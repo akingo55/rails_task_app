@@ -28,6 +28,25 @@ jobs:
           fetch-depth: 2
 
       # Runs a single command using the runners shell
+      - name: run docker build
+        id: migration
+        run: |
+          git diff --name-only @^ -- db/migrate
+          SIZE=$(git diff --name-only @^ -- db/migrate | wc -l)
+          echo "::set-output name=size::$SIZE"
+
+  migration:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      # Runs a single command using the runners shell
       - name: check migration
         id: migration
         run: |
@@ -35,9 +54,8 @@ jobs:
           SIZE=$(git diff --name-only @^ -- db/migrate | wc -l)
           echo "::set-output name=size::$SIZE"
           
-
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: run migration
         if: steps.migration.outputs.size != '0'
         run: |
           echo Add other actions to build,
