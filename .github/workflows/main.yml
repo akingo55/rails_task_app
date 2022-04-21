@@ -27,6 +27,14 @@ jobs:
           SIZE=$(git diff --name-only @^ -- db/migrate | wc -l)
           echo "::set-output name=size::$SIZE"
           echo ${{ github.ref }}
+          
+      - name: check env1
+        if: github.ref == 'refs/heads/master'
+        run: echo "deploy_env=production" >> $GITHUB_ENV
+        
+      - name: check env2
+        if: github.ref == 'refs/heads/develop'
+        run: echo "deploy_env=staging" >> $GITHUB_ENV
 
   migration:
     # The type of runner that the job will run on
@@ -45,6 +53,7 @@ jobs:
           git diff --name-only @^ -- db/migrate
           SIZE=$(git diff --name-only @^ -- db/migrate | wc -l)
           echo "::set-output name=size::$SIZE"
+          echo ${{ env.deploy_env }}
           
       - name: run migration
         if: steps.migration.outputs.size != '0'
